@@ -6,10 +6,7 @@ class Home extends BaseController
 {
     public function index()
     {
-        // return view('welcome_message');
-        return view('home');
+        return view('welcome_message');
     }
-    public function test(){
-        echo "danikardinal"; 
-    }
+
 }
