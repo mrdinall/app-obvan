@@ -29,6 +29,8 @@
                                     <th>Lokasi Barang</th>
                                     <th>Kondisi</th>
                                     <th>Keterangan</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -40,8 +42,8 @@
                                     <th>Tahun Perolehan</th>
                                     <th>Jumlah</th>
                                     <th>Lokasi Barang</th>
-                                    <th>Kondisi</th>
-                                    <th>Keterangan</th>
+                                    <th>Edit</th>
+                                    <th>Hapus</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -55,6 +57,8 @@
                                     <td>Lokasi Barang</td>
                                     <td>Kondisi</td>
                                     <td>Keterangan</td>
+                                    <td><button class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i>Edit</button></td>
+                                    <td><button class="btn btn-danger"><i class="fa-solid fa-trash"></i>Hapus</button></td>
                                 </tr>
                                 <tr>
                                     <td>Tiger Nixon</td>
