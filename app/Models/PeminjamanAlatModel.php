@@ -6,5 +6,6 @@ use CodeIgniter\Model;
 
 class PeminjamanAlatModel extends Model
 {
-    protected $table ='peminjaman-alat';
+    protected $table ='peminjaman_alat';
+  
 }

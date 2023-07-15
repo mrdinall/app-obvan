@@ -2,22 +2,30 @@
 
 namespace App\Controllers;
 use App\Models\PeminjamanAlatModel;
+use App\Models\ParentMerkModel;
 
 class PeminjamanAlat extends BaseController
 {
     protected $pinjamAlat;
+    protected $parentMerk;
     public function __construct()
     {
         $this->pinjamAlat= new PeminjamanAlatModel();
-        
+        $this->parentMerk= new ParentMerkModel();
+       
     }
     public function index()
     {
         $peminjaman= $this->pinjamAlat->findAll();
+        $parentMerk= $this->parentMerk->findAll();
         $data =[
-            'peminjaman'=> $peminjaman
+            'peminjaman'=> $peminjaman,
+            'parentMerk'=> $parentMerk
         ];
+
+        
         return view('peminjaman_alat',$data);
+    
     }
     public function delete($id)
     {
