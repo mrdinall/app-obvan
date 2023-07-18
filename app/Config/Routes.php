@@ -10,6 +10,7 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
+// $routes->setAutoRoute(true);
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
@@ -35,7 +36,11 @@ $routes->get('/inventaris_gudang', 'InventarisGudang::index');
 $routes->get('/inventaris_kamera', 'InventarisKamera::index');
 $routes->get('/inventaris_sng_van', 'InventarisSNGVAN::index');
 $routes->get('/peminjaman_alat', 'PeminjamanAlat::index');
-$routes->delete('/peminjaman_alat/(:any)', 'PeminjamanAlat::delete/$1');
+// $routes->get('/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
+// $routes->get('/peminjaman_alat/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
+$routes->get('/peminjaman_alat/create', 'PeminjamanAlat::create');
+$routes->delete('/peminjaman_alat/(:num)', 'PeminjamanAlat::delete/$1');
+
 
 
 /*

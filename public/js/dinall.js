@@ -9,7 +9,10 @@
 // } );
 $(document).ready(function () {
     $('#dinallTable').DataTable({
-        scrollX: true
+        scrollX: true,
+      
+        scrollCollapse: true,
+        scrollY: '50vh'
     });
 });
 
