@@ -39,7 +39,13 @@ $routes->get('/peminjaman_alat', 'PeminjamanAlat::index');
 // $routes->get('/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
 // $routes->get('/peminjaman_alat/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
 $routes->get('/peminjaman_alat/create', 'PeminjamanAlat::create');
-$routes->delete('/peminjaman_alat/(:num)', 'PeminjamanAlat::delete/$1');
+$routes->get('/peminjaman_alat/edit/(:segment)', 'PeminjamanAlat::edit/$1');
+$routes->delete('/peminjaman_alat/edit/(:segment)/(:segment)', 'PeminjamanAlat::edit/$1/$2');
+$routes->post('/peminjaman_alat/save', 'PeminjamanAlat::save');
+$routes->post('/peminjaman_alat/update/(:any)', 'PeminjamanAlat::update/$1');
+$routes->delete('/peminjaman_alat/(:segment)', 'PeminjamanAlat::delete/$1');
+// $routes->delete('/peminjaman_alat/edit/(:segment)/(:segment)', 'PeminjamanAlat::deletemerk/$1/$2');
+
 
 
 

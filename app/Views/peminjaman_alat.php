@@ -50,7 +50,7 @@
                                                 </tr>
 
                                                 <?php foreach ($parentMerk as $j) : ?>
-                                                    <?php if ($i['id'] == $j['id_pinjaman_alat']) : ?>
+                                                    <?php if ($i['id_pinjam'] == $j['id_pinjaman_alat']) : ?>
                                                         <tr>
 
                                                             <td class="text-center"><?= $j['nama_barang']; ?></td>
@@ -71,9 +71,9 @@
                                         <td><?= $i['tanggal_pengembalian']; ?></td>
                                         <td><?= $i['nama_penerima']; ?></td>
                                         <td><?= $i['catatan']; ?></td>
-                                        <td><a href="<?= $i['id']; ?>" class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
+                                        <td><a href="/peminjaman_alat/edit/<?= $i['id_pinjam']; ?>" class="btn btn-success btnEditPinjamAlat"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
                                         <td>
-                                            <form action="/peminjaman_alat/<?= $i['id']; ?>" method="post">
+                                            <form action="/peminjaman_alat/<?= $i['id_pinjam']; ?>" method="post">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <button type="submit" class="btn btn-danger" onclick=" return confirm('Apakah Anda Yakin?');"><i class="fa-solid fa-trash"></i>Hapus</button>
