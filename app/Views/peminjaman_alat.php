@@ -18,6 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>ID</th>
                                     <th>Tanggal</th>
                                     <th>Barang</th>
                                     <th>Acara</th>
@@ -38,6 +39,7 @@
                                 <?php foreach ($peminjaman as $i) : ?>
                                     <tr>
                                         <th><?= $number++; ?></th>
+                                        <td><?= $i['id_pinjam']; ?></td>
                                         <td><?= $i['tanggal']; ?></td>
                                         <td>
 
@@ -72,6 +74,7 @@
                                         <td><?= $i['nama_penerima']; ?></td>
                                         <td><?= $i['catatan']; ?></td>
                                         <td><a href="/peminjaman_alat/edit/<?= $i['id_pinjam']; ?>" class="btn btn-success btnEditPinjamAlat"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
+                                        <!-- <td><button type="button" class="btn btn-success btn-sm" onclick="edit('<?= $i['id_pinjam']; ?>')"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td> -->
                                         <td>
                                             <form action="/peminjaman_alat/<?= $i['id_pinjam']; ?>" method="post">
                                                 <?= csrf_field(); ?>
@@ -83,14 +86,17 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <div class="viewmodal" style="display: none;">
+
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
         <?= $this->include('layout/footer') ?>
-                                                        
-        
+
+
     </div>
 </div>
 <?= $this->endSection('content'); ?>

@@ -8,6 +8,7 @@ class PeminjamanAlatModel extends Model
 {
     protected $table = 'peminjaman_alat';
     protected $primaryKey = 'id_pinjam';
+    // protected $retunType='object';
     protected $useAutoIncrement = false;
     protected $allowedFields = ['id_pinjam', 'tanggal', 'acara', 'tempat', 'durasi_pinjam', 'nama_peminjam', 'nama_pemberi'];
 
@@ -38,14 +39,22 @@ class PeminjamanAlatModel extends Model
         }
         return $this->where(['id_pinjam' => $id])->first();
     }
+    public function getJoinsID($id_pinjam)
+    {
+        $builder=$this->db->table('peminjaman_alat');
+        $builder->join('parent_merk','parent_merk.id_pinjaman_alat=peminjaman_alat.id_pinjam');
+        $query=$builder->getWhere(['id_pinjam' => $id_pinjam]);
+        // dd($query->getResult());
+        return $query->getResult();
+        
+    }
     public function getJoins()
     {
-        $db      = \Config\Database::connect();
-        $builder = $db->table('peminjaman_alat');
-        // $builder = $this->table('peminjaman_alat');
-        $builder->select('*');
-        $builder->join('peminjaman_alat', 'peminjaman_alat.id_pinjam = parent_merk.id_pinjaman_alat');
-        $query = $builder->get();
-        dd($query);
+        $builder=$this->db->table('peminjaman_alat');
+        $builder->join('parent_merk','parent_merk.id_pinjaman_alat=peminjaman_alat.id_pinjam');
+        $query=$builder->get();
+        // dd($query->getResult());
+        return $query->getResult();
+        
     }
 }
