@@ -189,11 +189,9 @@ class PeminjamanAlat extends BaseController
             echo json_encode($msg);
         }
     }
-    public function hapus()
+    public function hapus($id)
     {
-        if ($this->request->isAJAX()) {
-            $id = $this->request->getVar('idTEXT');
-            $this->parentMerkModel->delete($id);
-        }
+        $this->parentMerkModel->delete($id);
+        // return redirect()->to('/peminjaman_alat');
     }
 }

@@ -18,7 +18,7 @@
                         <form action="/peminjaman_alat/update/<?= $dataPinjam['id_pinjam']; ?>" method="post">
 
                             <?= csrf_field(); ?>
-
+                            <input type="hidden" class="form-control" id="idGetForJs" placeholder="Nama Barang" value="<?= $dataPinjam['id_pinjam']; ?>">
                             <div class="row mb-3">
                                 <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
                                 <div class="col-sm-10">
@@ -33,11 +33,9 @@
 
                                         <?php foreach ($allDataParentMerk as $i) : ?>
                                             <tr>
-                                             
-                                                    <input type="hidden" class="form-control" name="idParentMerk[]" placeholder="Nama Barang" value="<?= $i['id']; ?>">
-                                                
 
-                                                    
+                                                <input type="hidden" class="form-control" name="idParentMerk[]" placeholder="Nama Barang" value="<?= $i['id']; ?>">
+
                                                 <td>
                                                     <input type="text" class="form-control" name="naBarEdit[]" placeholder="Nama Barang" value="<?= $i['nama_barang']; ?>">
                                                 </td>
@@ -52,8 +50,12 @@
                                                 </td>
                                                 <td>
 
-                                                    <button type="button" class="btn btn-danger btnHapusFormEdit" value="<?= $i['id']?>"><i class="fa-solid fa-trash"></i></button>
-
+                                                    <button type="button" class="btn btn-danger btnHapusFormEdit" value="<?= $i['id'] ?>" onclick=" return confirm('Apakah Anda Yakin?');"><i class="fa-solid fa-trash"></i></button>
+                                                    <!-- <form action="/peminjaman_alat/edit/<?= $dataPinjam['id_pinjam'];?>/<?= $i['id'];?>" method="post">
+                                                    
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button type="submit" class="btn btn-danger" onclick=" return confirm('Apakah Anda Yakin?');"><i class="fa-solid fa-trash"></i>Hapus</button>
+                                                    </form> -->
 
                                                 </td>
                                             </tr>

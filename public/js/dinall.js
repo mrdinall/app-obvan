@@ -70,15 +70,29 @@ $(document).on('click', '.btnHapusForm', function (e) {
     e.preventDefault();
     $(this).parents('tr').remove();
 });
+
 $(document).on('click', '.btnHapusFormEdit', function (e) {
     e.preventDefault();
-
+    let a = $("#idGetForJs").val();
     let id = $(this).val();
+    if(id!== ''){
 
-    alert(id);
-
+    
+       $.ajax({                    
+                // url: "/peminjaman_alat/edit/PJM-0001/"+id,
+                url: `/peminjaman_alat/edit/${a}/${id}`,
+                type: "POST",
+                dataType: "JSON",
+                success: function (response) {
+                    alert("Data deleted successfuly");
+                   
+                }
+            });
 
     $(this).parents('tr').remove();
+}else{
+    $(this).parents('tr').remove();
+}
 });
 
 $(document).ready(function (e) {
@@ -106,7 +120,23 @@ $(document).ready(function (e) {
     });
 });
 
+// $(document).ready(function () {
 
+//     $('.btnHapusFormEdit').click(function (e) {
+//         e.preventDefault();
+
+//         confirmDialog = confirm("Are you sure you want to delete?");
+//         if(confirmDialog)
+//         {
+//             var id = $(this).val();
+//             alert(id);
+     
+
+
+//         }
+
+//     });
+// });
 
 // $(document).ready(function edit($id) {
 
