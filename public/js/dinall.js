@@ -73,24 +73,51 @@ $(document).on('click', '.btnHapusForm', function (e) {
 
 $(document).on('click', '.btnHapusFormEdit', function (e) {
     e.preventDefault();
+    let count_element = $('.btnHapusFormEdit').length
+    // let count_elementAll = $('.btnHapusFormEdit').val();
+//   console.log($('.btnHapusFormEdit').size()>0);
+
+
     let a = $("#idGetForJs").val();
     let id = $(this).val();
+
+
+
     if(id!== ''){
-
+  
+        if(count_element>1 && id!== ''){
+       
+        Swal.fire({
+            title: 'Yakin Hapus Data Ini?',
+            
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ok, Hapus!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({                    
+                    // url: "/peminjaman_alat/edit/PJM-0001/"+id,
+                    url: `/peminjaman_alat/edit/${a}/${id}`,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (response) {
+                        alert("Data deleted successfuly");
+                       
+                    }
+                });
     
-       $.ajax({                    
-                // url: "/peminjaman_alat/edit/PJM-0001/"+id,
-                url: `/peminjaman_alat/edit/${a}/${id}`,
-                type: "POST",
-                dataType: "JSON",
-                success: function (response) {
-                    alert("Data deleted successfuly");
-                   
-                }
-            });
+            $(this).parents('tr').remove();
+            }
+          })
+    
+       
 
-    $(this).parents('tr').remove();
-}else{
+}
+else{console.log('id hanya ada satu');}
+}
+else{
     $(this).parents('tr').remove();
 }
 });
@@ -119,6 +146,8 @@ $(document).ready(function (e) {
 
     });
 });
+
+
 
 // $(document).ready(function () {
 

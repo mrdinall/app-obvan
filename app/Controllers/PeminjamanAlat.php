@@ -114,8 +114,11 @@ class PeminjamanAlat extends BaseController
         $serialNumberUpdate = $this->request->getVar('sNEditUpdate');
         $jumlahUpdate = $this->request->getVar('jumlahEditUpdate');
         
+
+       //update data lama parent merk
         if (!isset($namaBarangUpdate)) {
             $jumlahData = count($namaBarang);
+           
             for ($i = 0; $i < $jumlahData; $i++) {
                 $this->parentMerkModel->save([
                     'id' => $idParent[$i],
@@ -127,12 +130,10 @@ class PeminjamanAlat extends BaseController
  
                 ]);
             }
-        } else if(isset($namaBarangUpdate) )  {
-        
-            // $idParent = $this->request->getVar('idParentMerk');
        
+         // insert data baru parent merk
+        } else if(isset($namaBarangUpdate) )  {     
             $jumlahDataUpdate = count($namaBarangUpdate);
-            // dd($jumlahDataUpdate);
             for ($j = 0; $j < $jumlahDataUpdate; $j++) {
                 $this->parentMerkModel->save([
     
@@ -145,8 +146,8 @@ class PeminjamanAlat extends BaseController
     
                 ]);
             }
-
-
+            //fungsi untuk update data yang sudah ada
+            if(isset($namaBarang)){
             $jumlahData = count($namaBarang);
             for ($i = 0; $i < $jumlahData; $i++) {
                 $this->parentMerkModel->save([
@@ -159,7 +160,10 @@ class PeminjamanAlat extends BaseController
  
                 ]);
             }
+        } 
 
+        }else if(!isset($namaBarang) && !isset($namaBarangUpdate)){
+            die('dubug: datakosong');
         }
 
         return redirect()->to('/peminjaman_alat');
@@ -191,7 +195,7 @@ class PeminjamanAlat extends BaseController
     }
     public function hapus($id)
     {
-        $this->parentMerkModel->delete($id);
+        return $this->parentMerkModel->delete($id);
         // return redirect()->to('/peminjaman_alat');
     }
 }
