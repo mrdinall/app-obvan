@@ -74,7 +74,7 @@
                                         <td><?= $i['nama_penerima']; ?></td>
                                         <td><?= $i['catatan']; ?></td>
                                         <td><a href="/peminjaman_alat/edit/<?= $i['id_pinjam']; ?>" class="btn btn-success btnEditPinjamAlat"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
-                                        <!-- <td><button type="button" class="btn btn-success btn-sm" onclick="edit('<?= $i['id_pinjam']; ?>')"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td> -->
+                                  
                                         <td>
                                             <form action="/peminjaman_alat/<?= $i['id_pinjam']; ?>" method="post">
                                                 <?= csrf_field(); ?>

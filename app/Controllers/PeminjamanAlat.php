@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\PeminjamanAlatModel;
 use App\Models\ParentMerkModel;
-
+use PhpParser\Node\Stmt\Break_;
 
 class PeminjamanAlat extends BaseController
 {
@@ -75,18 +75,47 @@ class PeminjamanAlat extends BaseController
 
     public function edit($id_pinjam)
     {
-        // $allDataParentMerk = $this->parentMerkModel->getParentViews($id);
-
-
+        
+        // $allData = $this->parentMerkModel->getParentViews($id_pinjam);
+        
+        
         $data = [
             'dataPinjam' => $this->pinjamAlatModel->getPeminjamanAlat($id_pinjam),
-            'allDataParentMerk' => $this->parentMerkModel->getParentViews($id_pinjam)
+            'allDataParentMerk' => $this->parentMerkModel->getParentViews($id_pinjam),
+            
 
         ];
+        // var_dump($allDataParentMerk);
         // $data['allPeminjaman']=$this->pinjamAlatModel->getJoins($id_pinjam);
 
+        // foreach (array_slice($allDataParentMerk,1) as $index => $user) {
+        //     // print the array index
+        //     echo "<br>";
+            
 
-
+        //     foreach ($user as $key) {
+        //         echo $key;
+        //         // array_slice($user,1);
+        //         echo "<br>";
+                
+        //     }
+            
+        // }
+        //  var_dump($allData);
+        // foreach ($allData as $option){
+        //   $hitung=  count($allData)-1;
+         
+        //     echo "<br>";
+        //     foreach($option as $key => $value){
+        //     echo $value;
+          
+        //     echo "<br>";
+        //     }
+        //     $test =!array_key_first($option);
+        //     echo $test;
+        // }
+      
+        // echo $hitung;
         return view('edit', $data);
     }
     public function update($id_pinjam)
@@ -168,31 +197,31 @@ class PeminjamanAlat extends BaseController
 
         return redirect()->to('/peminjaman_alat');
     }
-    public function formedit()
-    {
-        dd('heleo');
-        if ($this->request->isAJAX()) {
+    // public function formedit()
+    // {
+    //     dd('heleo');
+    //     if ($this->request->isAJAX()) {
 
-            $idInAjax = $this->request->getVar('id_pinjam');
-            $row = $this->pinjamAlatModel->find($idInAjax);
-            $data = [
-                'id_pinjam' => $row['id_pinjam'],
-                'tanggal' => $row['tanggal'],
-                'acara' => $row['acara'],
-                'tempat' => $row['tempat'],
-                'durasi_pinjam' => $row['durasi_pinjam'],
-                'nama_peminjam' => $row['nama_peminjam'],
-                'nama_pemberi' => $row['nama_pemberi'],
-                'tanggal_pengembalian' => $row['tanggal_pengembalian'],
-                'nama_penerima' => $row['nama_penerima'],
-                'catatan' => $row['catatan'],
-            ];
-            $msg = [
-                'sukses' => view('peminjaman_alat/modaledit', $data)
-            ];
-            echo json_encode($msg);
-        }
-    }
+    //         $idInAjax = $this->request->getVar('id_pinjam');
+    //         $row = $this->pinjamAlatModel->find($idInAjax);
+    //         $data = [
+    //             'id_pinjam' => $row['id_pinjam'],
+    //             'tanggal' => $row['tanggal'],
+    //             'acara' => $row['acara'],
+    //             'tempat' => $row['tempat'],
+    //             'durasi_pinjam' => $row['durasi_pinjam'],
+    //             'nama_peminjam' => $row['nama_peminjam'],
+    //             'nama_pemberi' => $row['nama_pemberi'],
+    //             'tanggal_pengembalian' => $row['tanggal_pengembalian'],
+    //             'nama_penerima' => $row['nama_penerima'],
+    //             'catatan' => $row['catatan'],
+    //         ];
+    //         $msg = [
+    //             'sukses' => view('peminjaman_alat/modaledit', $data)
+    //         ];
+    //         echo json_encode($msg);
+    //     }
+    // }
     public function hapus($id)
     {
         return $this->parentMerkModel->delete($id);

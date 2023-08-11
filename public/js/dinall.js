@@ -73,20 +73,10 @@ $(document).on('click', '.btnHapusForm', function (e) {
 
 $(document).on('click', '.btnHapusFormEdit', function (e) {
     e.preventDefault();
-    let count_element = $('.btnHapusFormEdit').length
-    // let count_elementAll = $('.btnHapusFormEdit').val();
-//   console.log($('.btnHapusFormEdit').size()>0);
-
-
     let a = $("#idGetForJs").val();
     let id = $(this).val();
 
-
-
     if(id!== ''){
-  
-        if(count_element>1 && id!== ''){
-       
         Swal.fire({
             title: 'Yakin Hapus Data Ini?',
             
@@ -112,14 +102,11 @@ $(document).on('click', '.btnHapusFormEdit', function (e) {
             }
           })
     
-       
-
-}
-else{console.log('id hanya ada satu');}
 }
 else{
     $(this).parents('tr').remove();
 }
+
 });
 
 $(document).ready(function (e) {
