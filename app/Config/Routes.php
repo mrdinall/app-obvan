@@ -39,6 +39,7 @@ $routes->get('/peminjaman_alat', 'PeminjamanAlat::index');
 // $routes->get('/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
 // $routes->get('/peminjaman_alat/tambah_peminjaman_alat', 'TambahPeminjamanAlat::index');
 $routes->get('/peminjaman_alat/create', 'PeminjamanAlat::create');
+$routes->get('/peminjaman_alat/test', 'PeminjamanAlat::test');
 $routes->get('/peminjaman_alat/edit/(:segment)', 'PeminjamanAlat::edit/$1');
 
 $routes->post('/peminjaman_alat/save', 'PeminjamanAlat::save');

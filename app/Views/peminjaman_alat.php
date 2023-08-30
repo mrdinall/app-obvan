@@ -6,7 +6,14 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">Peminjaman Alat</h1>
+                <!-- <h1 class="mt-4">Peminjaman Alat</h1> -->
+                <h5 class="mt-4">
+                    <?php if (session()->getFlashdata('pesan')) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <?= session()->getFlashdata('pesan') ?>
+                        </div>
+                    <?php endif; ?>
+                </h5>
                 <a href="/peminjaman_alat/create" class="btn btn-primary my-2">Tambah</a>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -74,7 +81,7 @@
                                         <td><?= $i['nama_penerima']; ?></td>
                                         <td><?= $i['catatan']; ?></td>
                                         <td><a href="/peminjaman_alat/edit/<?= $i['id_pinjam']; ?>" class="btn btn-success btnEditPinjamAlat"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
-                                  
+
                                         <td>
                                             <form action="/peminjaman_alat/<?= $i['id_pinjam']; ?>" method="post">
                                                 <?= csrf_field(); ?>
