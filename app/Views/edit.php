@@ -21,22 +21,28 @@
                             <input type="hidden" class="form-control" id="idGetForJs" placeholder="Nama Barang" value="<?= $dataPinjam['id_pinjam']; ?>">
                             <div class="row mb-3">
                                 <label for="tanggal" class="col-sm-2 col-form-label">Tanggal</label>
+                                <?php $convert = $dataPinjam['tanggal'];
+                                $date = str_replace('/', '-', $convert);
+                                $tanggalconvert = date('d/m/Y', strtotime($date));
+                                ?>
+
+
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" placeholder="Tanggal" id="tanggal" name="tanggal" value="<?= $dataPinjam['tanggal']; ?>">
+                                    <input type="text" class="form-control" placeholder="Tanggal" id="tanggal" name="tanggal" value="<?= $tanggalconvert; ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
 
                                 <div class="col-sm-10 offset-sm-2">
-                                    
+
                                     <table class="table formTambahEdit">
                                         <?php foreach ($allDataParentMerk as $key => $j) : ?>
                                             <?php if ($key == 0) : ?>
                                                 <tr>
-                                                    <input type="hidden" class="form-control" name="idParentMerk[]"  value="<?= $j['id']; ?>">
+                                                    <input type="hidden" class="form-control" name="idParentMerk[]" value="<?= $j['id']; ?>">
 
                                                     <td>
-                                                        <input type="text" class="form-control" name="naBarEdit[]"  value="<?= $j['nama_barang']; ?>">
+                                                        <input type="text" class="form-control" name="naBarEdit[]" value="<?= $j['nama_barang']; ?>">
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" name="merkEdit[]" value="<?= $j['merk']; ?>">
@@ -48,13 +54,19 @@
                                                         <input type="text" class="form-control" name="jumlahEdit[]" value="<?= $j['jumlah']; ?>">
                                                     </td>
                                                     <td>
-                                                    <button type="button" class="btn btn-primary btnAddFormEdit"><i class="fa-solid fa-plus"></i></button>
+                                                        <div class="form-check form-switch">
+                                                            
+                                                            <input class="form-check-input"  name="checkAlat[]" type="checkbox" value="<?=($j['status']==true) ? $j['status'] :'0' ?>" id="flexSwitchCheckChecked" <?=($j['status']==true) ? 'checked' :'' ?>>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btnAddFormEdit"><i class="fa-solid fa-plus"></i></button>
                                                     </td>
                                                 </tr>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
 
-                                        <?php foreach (array_slice($allDataParentMerk,1) as $i) : ?>
+                                        <?php foreach (array_slice($allDataParentMerk, 1) as $i) : ?>
                                             <tr>
 
                                                 <input type="hidden" class="form-control" name="idParentMerk[]" placeholder="Nama Barang" value="<?= $i['id']; ?>">
@@ -70,6 +82,11 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" name="jumlahEdit[]" placeholder="Jumlah" value="<?= $i['jumlah']; ?>">
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-switch">
+                                                        <input class="form-check-input" name="checkAlat[]" type="checkbox" value="<?=('checked'==true) ? '1' :'0' ?>" id="flexSwitchCheckChecked" <?=($i['status']==true) ? 'checked' :'' ?>>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-danger btnHapusFormEdit" value="<?= $i['id'] ?>"><i class="fa-solid fa-trash"></i></button>

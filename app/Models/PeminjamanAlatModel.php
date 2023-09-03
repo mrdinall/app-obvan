@@ -53,7 +53,7 @@ class PeminjamanAlatModel extends Model
         $builder=$this->db->table('peminjaman_alat');
         $builder->join('parent_merk','parent_merk.id_pinjaman_alat=peminjaman_alat.id_pinjam');
         $query=$builder->get();
-        // dd($query->getResult());
+       
         return $query->getResult();
         
     }

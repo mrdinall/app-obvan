@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\PeminjamanAlatModel;
 use App\Models\ParentMerkModel;
+use CodeIgniter\Entity\Cast\DatetimeCast;
 
 class PeminjamanAlat extends BaseController
 {
@@ -20,8 +21,40 @@ class PeminjamanAlat extends BaseController
     }
     public function index()
     {
+        // dd($this->parentMerkModel->getCheckDone('PJM-0002'));
+        // $tomorrow  = mktime(0, 0, 0, date("m")  , date("d")+1, date("Y"));
+        // $lastmonth = mktime(0, 0, 0, date("m")-1, date("d"),   date("Y"));
+        // $nextyear  = mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1);
+        // $today = date("Y-m-d");  
+        // $tes =$this->pinjamAlatModel->getPeminjamanAlat();
+        // foreach($tes as $j){
+        //     // echo($j['tanggal'].'</br>');
+        //     $tanggalPengembalian= $j['tanggal'];
+        //     if($tanggalPengembalian==$today){
+        //         echo $tanggalPengembalian.'hari pengembalian';
+                
+
+        //     }else if($tanggalPengembalian< $today){
+                
+        //         echo $tanggalPengembalian.'pengembalian expired';
+
+        //     }elseif($tanggalPengembalian> $today){
+        //         echo $tanggalPengembalian.'sedang dipinjam';
+        //     }
+        //   echo '</br>';  
+        // }
+        // dd($today);
+        //testing status boolean
+//  dd($this->parentMerkModel->getCheckDone());
+// $test=$this->parentMerkModel->getCheckDone();
+// $s = array();
+// foreach($test as $t){
+//     $s=$t['hasil']; 
+// }
+// dd($s);
 
         $data = [
+            'checkStatus' => $this->parentMerkModel->getCheckDone(),
             'peminjaman' => $this->pinjamAlatModel->getPeminjamanAlat(),
             'parentMerk' => $this->parentMerkModel->getParentMerk()
         ];
@@ -40,7 +73,7 @@ class PeminjamanAlat extends BaseController
             'title' => 'Form Tambah Data Peminjaman Alat',
 
         ];
-        // $data['validation'] = \Config\Services::validation();
+        
         return view('create', $data);
     }
     public function test()
@@ -50,7 +83,7 @@ class PeminjamanAlat extends BaseController
             'title' => 'Form Tambah Data Peminjaman Test',
 
         ];
-        // $data['validation'] = \Config\Services::validation();
+     
         return view('test', $data);
     }
     public function save()
@@ -134,6 +167,7 @@ class PeminjamanAlat extends BaseController
 
     public function edit($id_pinjam)
     {
+     
         $data = [
             'dataPinjam' => $this->pinjamAlatModel->getPeminjamanAlat($id_pinjam),
             'allDataParentMerk' => $this->parentMerkModel->getParentViews($id_pinjam)
@@ -148,9 +182,15 @@ class PeminjamanAlat extends BaseController
     public function update($id_pinjam)
     {
         // $idAutoPeminjamanAlat = $this->pinjamAlatModel->autoNumberId();
+        $converttglEdit = $this->request->getVar('tanggal');
+        $dateEdit = str_replace('/', '-', $converttglEdit);
+        $tanggalconvertEdit= date('Y-m-d', strtotime($dateEdit));
+      
+
+
         $this->pinjamAlatModel->save([
             'id_pinjam' => $id_pinjam,
-            'tanggal' => $this->request->getVar('tanggal'),
+            'tanggal' => $tanggalconvertEdit,
             'acara' => $this->request->getVar('acara'),
             'tempat' => $this->request->getVar('tempat'),
             'durasi_pinjam' => $this->request->getVar('durasi_pinjam'),
@@ -163,7 +203,14 @@ class PeminjamanAlat extends BaseController
         $merk = $this->request->getVar('merkEdit');
         $serialNumber = $this->request->getVar('sNEdit');
         $jumlah = $this->request->getVar('jumlahEdit');
-
+        $checkAlat = $this->request->getVar('checkAlat');
+        // foreach($checkAlat as $i){
+        //     if($i==='on'){
+        //         echo 'hidup';
+        //     }
+        // }
+       
+        dd($checkAlat);
         //updateAdd
         $namaBarangUpdate = $this->request->getVar('naBarEditUpdate');
         $merkUpdate = $this->request->getVar('merkEditUpdate');
@@ -182,7 +229,8 @@ class PeminjamanAlat extends BaseController
                     'nama_barang' => $namaBarang[$i],
                     'merk' => $merk[$i],
                     'serial_number' => $serialNumber[$i],
-                    'jumlah' => $jumlah[$i]
+                    'jumlah' => $jumlah[$i],
+                    'checkAlat'=> $checkAlat
 
                 ]);
             }
@@ -191,6 +239,7 @@ class PeminjamanAlat extends BaseController
         } else if (isset($namaBarangUpdate)) {
             $jumlahDataUpdate = count($namaBarangUpdate);
             for ($j = 0; $j < $jumlahDataUpdate; $j++) {
+                
                 $this->parentMerkModel->save([
 
 
@@ -201,11 +250,14 @@ class PeminjamanAlat extends BaseController
                     'jumlah' => $jumlahUpdate[$j]
 
                 ]);
+                
             }
             //fungsi untuk update data yang sudah ada
             if (isset($namaBarang)) {
                 $jumlahData = count($namaBarang);
                 for ($i = 0; $i < $jumlahData; $i++) {
+                
+
                     $this->parentMerkModel->save([
                         'id' => $idParent[$i],
                         // 'id_pinjaman_alat' => $idAutoPeminjamanAlat,

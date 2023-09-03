@@ -9,13 +9,43 @@
 // } );
 
 $(document).ready(function () {
+    
     $('#dinallTable').DataTable({
+  
         scrollX: true,
 
         scrollCollapse: true,
         scrollY: '70vh'
-    });
+      
+        
+    },
+   
+    
+    // ,
+    // {
+    //     label: 'Registered date:',
+    //     name: 'registered_date',
+    //     type: 'datetime',
+    //     def: () => new Date(),
+    //     displayFormat: 'dddd D MMMM YYYY',
+    //     wireFormat: 'YYYY-MM-DD',
+    //     fieldInfo: 'Verbose date format'
+    // }
+    
+    
+    );
+   
 });
+
+// orderCellsTop: true,
+// columns: [
+//   { data: 'name' },
+//   { data: 'position' },
+//   { data: 'office' },
+//   { data: 'extn' },
+//   { data: 'start_date', render: fnRenderDate },
+//   { data: 'salary' }
+// ],
 $(document).ready(function () {
     $('#tableInputBarang').DataTable({
 
@@ -27,7 +57,6 @@ $(document).ready(function () {
 
     $(function () {
         $("#tanggal").datepicker({
-            // dateFormat: 'yy-mm-dd',
             dateFormat: 'dd/mm/yy',
 
         });
