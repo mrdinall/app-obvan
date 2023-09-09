@@ -89,7 +89,7 @@ $(document).ready(function () {
 //     });
 // });
 //validation from javascript
-
+//start add number dinamis & add element table row
 $(function()
 	{
       // Add Row
@@ -138,10 +138,13 @@ $(function()
 
     function renumberRows() {
         $(".formTambah").children().children().each(function(i, v) {
-          $(this).find(".rownumber").text(i + 1);
+            
+          $(this).find(".rownumber").text(i);
+        //   $(this).find(".rownumber").val(i + 1); index i dimulai dari 0
+        // console.log(i);
         });
       }
-
+// end add number dinamis & add element table row
 
 
 
@@ -196,49 +199,75 @@ $(function()
 
 
 
-$(document).on('click', '.btnHapusFormEdit', function (e) {
-    e.preventDefault();
-    let a = $("#idGetForJs").val();
-    let id = $(this).val();
 
-    if(id!== ''){
-        Swal.fire({
-            title: 'Yakin Hapus Data Ini?',
-            
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ok, Hapus!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({                    
-                    // url: "/peminjaman_alat/edit/PJM-0001/"+id,
-                    url: `/peminjaman_alat/edit/${a}/${id}`,
-                    type: "POST",
-                    dataType: "JSON",
-                    success: function (response) {
-                        alert("Data deleted successfuly");
-                       
-                    }
-                });
+//start add number dinamis & add element table row
+$(function()
+	{
+      // Add Row
+
     
-            $(this).parents('tr').remove();
+		$(".btnAddFormEdit").click(function()
+		{
+			addnewrowEdit();
+            renumberRowsEdit();
+		});
+      
+      // Remove Row
+      	$("body").delegate('.btnHapusFormEdit','click',function(e)
+		{
+                e.preventDefault();
+                let a = $("#idGetForJs").val();
+                let id = $(this).val();         
+                if(id!== ''){
+                    Swal.fire({
+                        title: 'Yakin Hapus Data Ini?',
+                        
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'OK',
+                        cancelButtonText: 'Batal'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({                    
+                                // url: "/peminjaman_alat/edit/PJM-0001/"+id,
+                                url: `/peminjaman_alat/edit/${a}/${id}`,
+                                type: "POST",
+                                success: function (response) {
+                                    
+                                 
+                                    Swal.fire(
+                                        'Berhasil!',
+                                        'Data berhasil dihapus.',
+                                        'success'
+                                      )
+                                   
+                                }
+                            });
+                            $(this).parent().parent().remove();
+                            renumberRowsEdit();
+                        }
+                      })
+                
             }
-          })
-    
-}
-else{
-    $(this).parents('tr').remove();
-}
-
-});
-
-$(document).ready(function (e) {
-    $('.btnAddFormEdit').click(function (e) {
-        e.preventDefault();
-        // console.log('dinall');
-        $('.formTambahEdit').append(`<tr>
+            else{
+                $(this).parent().parent().remove();
+                renumberRowsEdit();
+                console.log('no-database');
+            }
+            
+            });
+		});	
+      
+       
+   
+	function addnewrowEdit()
+	{
+        let tr= `<tr>
+        <td class="rownumber">
+        <?= $number2++; ?>
+        </td>
         <td>
             <input type="text" required class="form-control" name="naBarEditUpdate[]" placeholder="Nama Barang">
         </td>
@@ -252,12 +281,97 @@ $(document).ready(function (e) {
             <input type="text" required class="form-control" name="jumlahEditUpdate[]" placeholder="Jumlah">
         </td>
         <td>
+        <p class="text-success">baru..</p>
+        </td>
+        <td>
             <button type="button" required class="btn btn-danger btnHapusFormEdit"><i class="fa-solid fa-trash"></i></button>
         </td>
-    </tr>`);
+    </tr>`;
+    $('.formTambahEdit').append(tr);
+	};
 
-    });
+    function renumberRowsEdit() {
+        $(".formTambahEdit").children().children().each(function(i, v) {
+            
+          $(this).find(".rownumber").text(i);
+        //   $('#getCountNumber').val(i);
+        //   $('#getCountNumber').attr('name', i);
+        //   $(this).find(".rownumber").val(i + 1); index i dimulai dari 0
+        // console.log(i);
+        });
+      }
+// end add number dinamis & add element table row
+
+//confirm ok
+// $('.hapusPjm').click(function () {
+//     // escape here if the confirm is false;
+//     if (!confirm('Are you sure?')) return false;
+        
+//     let btn = this;
+//     setTimeout(function () { $(btn).attr('disabled', 'disabled'); }, 1);
+//     console.log("berhasil");
+//     return true;
+// });
+$(document).ready(function(){
+$('.hapusPjm').click(function(e){
+    e.preventDefault();
+    
+
+    
 });
+
+});
+
+
+
+
+// $('.hapusPjm').click(function(){
+  
+//     swal({
+//     title: 'Are you sure?',
+//     text: "It will permanently deleted !",
+//     type: 'warning',
+//     showCancelButton: true,
+//     confirmButtonColor: '#3085d6',
+//     cancelButtonColor: '#d33',
+//     confirmButtonText: 'Yes, delete it!'
+//   }).then(function() {
+//     swal(
+//       'Deleted!',
+//       'Your file has been deleted.',
+//       'success'
+//     );
+//   })
+    
+//   })
+
+
+
+//add element table row
+// $(document).ready(function (e) {
+//     $('.btnAddFormEdit').click(function (e) {
+//         e.preventDefault();
+//         // console.log('dinall');
+//         $('.formTambahEdit').append(`<tr>
+//         <td>
+//             <input type="text" required class="form-control" name="naBarEditUpdate[]" placeholder="Nama Barang">
+//         </td>
+//         <td>
+//             <input type="text" required class="form-control" name="merkEditUpdate[]" placeholder="Merk">
+//         </td>
+//         <td>
+//             <input type="text" required class="form-control" name="sNEditUpdate[]" placeholder="Serial Number">
+//         </td>
+//         <td>
+//             <input type="text" required class="form-control" name="jumlahEditUpdate[]" placeholder="Jumlah">
+//         </td>
+//         <td>
+//             <button type="button" required class="btn btn-danger btnHapusFormEdit"><i class="fa-solid fa-trash"></i></button>
+//         </td>
+//     </tr>`);
+
+//     });
+// });
 
 
 
@@ -356,6 +470,7 @@ $(document).ready(function (e) {
 //       })
     
 // }
+
 
 
 

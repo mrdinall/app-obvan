@@ -10,7 +10,7 @@ class ParentMerkModel extends Model
     protected $table = 'parent_merk';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
-    protected $allowedFields = ['id', 'id_pinjaman_alat', 'nama_barang', 'merk', 'serial_number', 'jumlah'];
+    protected $allowedFields = ['id', 'id_pinjaman_alat', 'nama_barang', 'merk', 'serial_number', 'jumlah','status'];
 
     public function getParentMerk($id = false)
     {

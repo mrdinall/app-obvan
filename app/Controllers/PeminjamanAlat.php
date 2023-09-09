@@ -32,10 +32,10 @@ class PeminjamanAlat extends BaseController
         //     $tanggalPengembalian= $j['tanggal'];
         //     if($tanggalPengembalian==$today){
         //         echo $tanggalPengembalian.'hari pengembalian';
-                
+
 
         //     }else if($tanggalPengembalian< $today){
-                
+
         //         echo $tanggalPengembalian.'pengembalian expired';
 
         //     }elseif($tanggalPengembalian> $today){
@@ -45,13 +45,13 @@ class PeminjamanAlat extends BaseController
         // }
         // dd($today);
         //testing status boolean
-//  dd($this->parentMerkModel->getCheckDone());
-// $test=$this->parentMerkModel->getCheckDone();
-// $s = array();
-// foreach($test as $t){
-//     $s=$t['hasil']; 
-// }
-// dd($s);
+        //  dd($this->parentMerkModel->getCheckDone());
+        // $test=$this->parentMerkModel->getCheckDone();
+        // $s = array();
+        // foreach($test as $t){
+        //     $s=$t['hasil']; 
+        // }
+        // dd($s);
 
         $data = [
             'checkStatus' => $this->parentMerkModel->getCheckDone(),
@@ -73,7 +73,7 @@ class PeminjamanAlat extends BaseController
             'title' => 'Form Tambah Data Peminjaman Alat',
 
         ];
-        
+
         return view('create', $data);
     }
     public function test()
@@ -83,7 +83,7 @@ class PeminjamanAlat extends BaseController
             'title' => 'Form Tambah Data Peminjaman Test',
 
         ];
-     
+
         return view('test', $data);
     }
     public function save()
@@ -94,7 +94,7 @@ class PeminjamanAlat extends BaseController
                 'rules' => 'required|valid_date[d/m/Y]',
                 'errors' => [
                     'required' => '{field} harus di isi !',
-                    'valid_date'=> 'format {field} tidak benar!'
+                    'valid_date' => 'format {field} tidak benar!'
                 ]
             ],
             'acara' => [
@@ -130,8 +130,8 @@ class PeminjamanAlat extends BaseController
         $idAutoPeminjamanAlat = $this->pinjamAlatModel->autoNumberId();
         $converttgl = $this->request->getVar('tanggal');
         $date = str_replace('/', '-', $converttgl);
-        $tanggalconvert= date('Y-m-d', strtotime($date));
-     
+        $tanggalconvert = date('Y-m-d', strtotime($date));
+
         $this->pinjamAlatModel->save([
             'id_pinjam' => $idAutoPeminjamanAlat,
             'tanggal' => $tanggalconvert,
@@ -161,13 +161,13 @@ class PeminjamanAlat extends BaseController
 
             ]);
         }
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan.');
+        session()->setFlashdata('pesan', $jumlahDataInput . ' Data ' . $idAutoPeminjamanAlat . ', Berhasil Ditambahkan.');
         return redirect()->to('/peminjaman_alat');
     }
 
     public function edit($id_pinjam)
     {
-     
+
         $data = [
             'dataPinjam' => $this->pinjamAlatModel->getPeminjamanAlat($id_pinjam),
             'allDataParentMerk' => $this->parentMerkModel->getParentViews($id_pinjam)
@@ -184,8 +184,8 @@ class PeminjamanAlat extends BaseController
         // $idAutoPeminjamanAlat = $this->pinjamAlatModel->autoNumberId();
         $converttglEdit = $this->request->getVar('tanggal');
         $dateEdit = str_replace('/', '-', $converttglEdit);
-        $tanggalconvertEdit= date('Y-m-d', strtotime($dateEdit));
-      
+        $tanggalconvertEdit = date('Y-m-d', strtotime($dateEdit));
+
 
 
         $this->pinjamAlatModel->save([
@@ -204,13 +204,9 @@ class PeminjamanAlat extends BaseController
         $serialNumber = $this->request->getVar('sNEdit');
         $jumlah = $this->request->getVar('jumlahEdit');
         $checkAlat = $this->request->getVar('checkAlat');
-        // foreach($checkAlat as $i){
-        //     if($i==='on'){
-        //         echo 'hidup';
-        //     }
-        // }
-       
-        dd($checkAlat);
+
+        //    dd($checkAlat);
+
         //updateAdd
         $namaBarangUpdate = $this->request->getVar('naBarEditUpdate');
         $merkUpdate = $this->request->getVar('merkEditUpdate');
@@ -230,16 +226,17 @@ class PeminjamanAlat extends BaseController
                     'merk' => $merk[$i],
                     'serial_number' => $serialNumber[$i],
                     'jumlah' => $jumlah[$i],
-                    'checkAlat'=> $checkAlat
-
+                    'status' => $checkAlat[$i]
                 ]);
             }
+
+            // session()->setFlashdata('pesan',$jumlahData.' Data '.$id_pinjam.', Berhasil Diupdate.');
 
             // insert data baru parent merk
         } else if (isset($namaBarangUpdate)) {
             $jumlahDataUpdate = count($namaBarangUpdate);
             for ($j = 0; $j < $jumlahDataUpdate; $j++) {
-                
+
                 $this->parentMerkModel->save([
 
 
@@ -250,13 +247,12 @@ class PeminjamanAlat extends BaseController
                     'jumlah' => $jumlahUpdate[$j]
 
                 ]);
-                
             }
             //fungsi untuk update data yang sudah ada
             if (isset($namaBarang)) {
                 $jumlahData = count($namaBarang);
                 for ($i = 0; $i < $jumlahData; $i++) {
-                
+
 
                     $this->parentMerkModel->save([
                         'id' => $idParent[$i],
@@ -264,12 +260,32 @@ class PeminjamanAlat extends BaseController
                         'nama_barang' => $namaBarang[$i],
                         'merk' => $merk[$i],
                         'serial_number' => $serialNumber[$i],
-                        'jumlah' => $jumlah[$i]
+                        'jumlah' => $jumlah[$i],
+                        'status' => $checkAlat[$i]
+
+
 
                     ]);
                 }
             }
         }
+
+        $jmlDataLama = count($namaBarang);
+        // $jmlDataBaru= count($namaBarangUpdate);
+        // $jmlSeluruh= $jmlDataLama+$jmlDataBaru;   
+
+
+        if (!isset($namaBarangUpdate)) {
+            session()->setFlashdata('pesan', $jmlDataLama . ' barang dari kode pinjam ' . $id_pinjam . ', Berhasil Diupdate.');
+        } else if (isset($namaBarangUpdate)) {
+            // $jmlDataLama = count($namaBarang);
+            $jmlDataBaru = count($namaBarangUpdate);
+            $jmlSeluruh = $jmlDataLama + $jmlDataBaru;
+
+            // session()->setFlashdata('pesan', $jmlSeluruh . ' Data ' . $id_pinjam . ', Berhasil Diupdate.');
+            session()->setFlashdata('pesan', 'Terdeteksi '.$jmlDataBaru.' barang baru ditambahakan, dan '.$jmlDataLama.' barang lama berhasil diupdate, total barang kode pinjam '.$id_pinjam.' adalah '.$jmlSeluruh.' ');
+        }
+
 
         return redirect()->to('/peminjaman_alat');
     }

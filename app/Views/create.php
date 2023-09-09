@@ -39,8 +39,17 @@
                                 <div class="col-sm-10 offset-sm-2">
                                     <table class="table formTambah">
                                         <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Nama Barang</th>
+                                            <th class="text-center">Merk</th>
+                                            <th class="text-center">S.N</th>
+                                            <th class="text-center">Jumlah</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+
+                                        <tr>
                                             <td class="rownumber">
-                                            
+                                                1
                                             </td>
                                             <td>
                                                 <input type="text" required id="dinall-js-nabar-01052013" class="form-control" name="naBar[]" placeholder="Nama Barang" id="naBarang1">
@@ -50,7 +59,7 @@
                                                 <input type="text" required class="form-control" name="merk[]" placeholder="Merk">
                                             </td>
                                             <td>
-                                                <input type="text" required class="form-control" name="sN[]" placeholder="Serial Number" value="<?='-';?>">
+                                                <input type="text" required class="form-control" name="sN[]" placeholder="Serial Number" value="<?= '-'; ?>">
                                             </td>
                                             <td>
                                                 <input type="text" required id="dinall-js-jumlah-01052013" class="form-control" name="jumlah[]" placeholder="Jumlah">
@@ -69,7 +78,7 @@
                                 <label for="acara" class="col-sm-2 col-form-label">Acara</label>
                                 <div class="col-sm-10">
                                     <input type="text" required class="form-control" placeholder="Acara" id="acara" name="acara" value="<?= old('acara') ?>">
-                            
+
 
                                     <span class="text-danger"> <?= validation_show_error('acara'); ?></span>
                                 </div>
@@ -177,7 +186,6 @@
             // jQuery.validator.addMethod("validDate", function(value, element) {
             //         return this.optional(element) || moment(value, "DD/MM/YYYY").isValid();
             //     }, "Please enter a valid date in the format DD/MM/YYYY");
-       
         </script>
         <?= $this->include('layout/footer') ?>
 

@@ -134,10 +134,10 @@
                                         <td><a href="/peminjaman_alat/edit/<?= $valuePeminjaman['id_pinjam']; ?>" class="btn btn-success btnEditPinjamAlat"><i class="fa-regular fa-pen-to-square"></i>Edit</a></td>
 
                                         <td>
-                                            <form action="/peminjaman_alat/<?= $valuePeminjaman['id_pinjam']; ?>" method="post">
+                                            <form id="hapus" action="/peminjaman_alat/<?= $valuePeminjaman['id_pinjam']; ?>" method="post">
                                                 <?= csrf_field(); ?>
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <button type="submit" class="btn btn-danger" onclick=" return confirm('Apakah Anda Yakin?');"><i class="fa-solid fa-trash"></i>Hapus</button>
+                                                <button type="submit" class="btn btn-danger hapusPjm"><i class="fa-solid fa-trash"></i>Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -146,7 +146,7 @@
                             </tbody>
 
                         </table>
-
+                    
                     </div>
                 </div>
             </div>
